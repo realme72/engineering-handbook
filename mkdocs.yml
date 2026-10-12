@@ -1,6 +1,9 @@
 site_name: Software Engineering Handbook
 site_description: Personal Software Engineering Notes
 site_author: Gaurav Bharti
+site_url: https://realme72.github.io/engineering-handbook/
+repo_url: https://github.com/realme72/engineering-handbook
+repo_name: realme72/engineering-handbook
 
 theme:
   name: material
