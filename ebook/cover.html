@@ -1,0 +1,127 @@
+<!doctype html>
+<!-- Ebook cover. Rendered to dist/cover.png (1800x2400) by scripts/build_ebook.py; also used as the PDF/EPUB cover. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0b1026;
+    --indigo: #3f51b5;
+    --accent: #7c8cff;
+    --cyan: #4dd0e1;
+    --text: #eef0ff;
+    --muted: #a9b0d6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1800px; height: 2400px; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(1200px 900px at 85% 8%, rgba(124, 140, 255, 0.35), transparent 60%),
+      radial-gradient(1000px 800px at 0% 100%, rgba(77, 208, 225, 0.18), transparent 60%),
+      linear-gradient(160deg, #141a3d 0%, var(--ink) 55%, #070a1a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 90px 90px;
+  }
+  svg.net { position: absolute; top: 120px; right: -60px; width: 1300px; height: 1100px; }
+  .content { position: absolute; left: 150px; right: 150px; top: 960px; }
+  .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 40px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 50px;
+  }
+  h1 {
+    font-size: 196px; line-height: 0.98; font-weight: 800; letter-spacing: -5px;
+  }
+  h1 .hl {
+    background: linear-gradient(90deg, var(--accent), var(--cyan));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .rule { width: 220px; height: 10px; border-radius: 5px; margin: 70px 0 60px;
+          background: linear-gradient(90deg, var(--accent), var(--cyan)); }
+  .topics { font-size: 58px; font-weight: 600; line-height: 1.35; }
+  .topics span { color: var(--accent); padding: 0 14px; }
+  .tagline { margin-top: 40px; font-size: 46px; color: var(--muted); line-height: 1.4; max-width: 1350px; }
+  .footer {
+    position: absolute; left: 150px; right: 150px; bottom: 140px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 2px solid rgba(255,255,255,0.14); padding-top: 60px;
+  }
+  .author { font-size: 64px; font-weight: 600; }
+  .badge {
+    font-family: "JetBrains Mono", monospace; font-size: 36px; color: var(--muted);
+    border: 2px solid rgba(255,255,255,0.2); border-radius: 60px; padding: 18px 40px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+
+  <!-- A small distributed system: services, links and a highlighted request path. -->
+  <svg class="net" viewBox="0 0 1300 1100" fill="none">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7c8cff"/><stop offset="1" stop-color="#4dd0e1"/>
+      </linearGradient>
+    </defs>
+    <g stroke="rgba(169,176,214,0.28)" stroke-width="4">
+      <line x1="300" y1="200" x2="650" y2="140"/>
+      <line x1="650" y1="140" x2="1000" y2="260"/>
+      <line x1="300" y1="200" x2="420" y2="520"/>
+      <line x1="650" y1="140" x2="760" y2="460"/>
+      <line x1="1000" y1="260" x2="760" y2="460"/>
+      <line x1="420" y1="520" x2="760" y2="460"/>
+      <line x1="420" y1="520" x2="560" y2="840"/>
+      <line x1="760" y1="460" x2="1060" y2="700"/>
+      <line x1="560" y1="840" x2="1060" y2="700"/>
+      <line x1="1000" y1="260" x2="1060" y2="700"/>
+      <line x1="560" y1="840" x2="900" y2="980"/>
+      <line x1="1060" y1="700" x2="900" y2="980"/>
+    </g>
+    <!-- request path -->
+    <polyline points="300,200 420,520 760,460 1060,700 900,980" stroke="url(#g)" stroke-width="9"
+              stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 22"/>
+    <g fill="#141a3d" stroke="rgba(169,176,214,0.55)" stroke-width="4">
+      <circle cx="650" cy="140" r="34"/>
+      <circle cx="1000" cy="260" r="40"/>
+      <circle cx="560" cy="840" r="38"/>
+    </g>
+    <g fill="#141a3d" stroke="url(#g)" stroke-width="7">
+      <circle cx="300" cy="200" r="46"/>
+      <rect x="374" y="474" width="92" height="92" rx="18"/>
+      <circle cx="760" cy="460" r="56"/>
+      <rect x="1010" y="650" width="100" height="100" rx="20"/>
+      <circle cx="900" cy="980" r="46"/>
+    </g>
+    <g fill="url(#g)">
+      <circle cx="300" cy="200" r="12"/>
+      <circle cx="760" cy="460" r="16"/>
+      <circle cx="900" cy="980" r="12"/>
+    </g>
+  </svg>
+
+  <div class="content">
+    <div class="kicker">The interview-prep handbook</div>
+    <h1>Software<br>Engineering<br><span class="hl">Handbook</span></h1>
+    <div class="rule"></div>
+    <div class="topics">Python<span>·</span>Design Patterns<span>·</span>Backend Engineering</div>
+    <div class="tagline">How modern systems really work, from Python internals to distributed systems. 150+ in-depth chapters.</div>
+  </div>
+
+  <div class="footer">
+    <div class="author">Gaurav Bharti</div>
+    <div class="badge">realme72.github.io/engineering-handbook</div>
+  </div>
+</body>
+</html>

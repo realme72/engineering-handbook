@@ -1,7 +1,7 @@
 name: Build ebook
 
 # Tag a release (git tag v1.0 && git push origin v1.0) or run manually from the
-# Actions tab. Download the PDF + EPUB from the run's artifacts and upload them
+# Actions tab. Download the PDF + EPUB + cover.png from the run's artifacts and upload them
 # to Leanpub. Artifacts are kept for 7 days.
 on:
   push:

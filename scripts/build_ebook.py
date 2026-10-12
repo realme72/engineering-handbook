@@ -5,7 +5,7 @@
 Pipeline:
   1. `mkdocs build -f mkdocs-ebook.yml` renders every nav page into a single
      print page (mkdocs-print-site-plugin), styled exactly like the site.
-  2. Headless Chromium (Playwright) opens that page, so client-side JS
+  2. Headless Chromium (Playwright) renders ebook/cover.html to a PNG, opens the print page, so client-side JS
      (syntax highlighting, tabs) has run, and prints it to PDF.
   3. The rendered chapter HTML is handed to pandoc to produce the EPUB.
 
@@ -14,6 +14,7 @@ Requires: pip install -r requirements-ebook.txt, `playwright install chromium`
 """
 
 import argparse
+import base64
 import datetime
 import functools
 import http.server
@@ -72,6 +73,18 @@ def launch_browser(p):
         return p.chromium.launch(channel="chrome")
 
 
+def render_cover(browser):
+    """Render ebook/cover.html to a 1800x2400 PNG (3:4, the Leanpub cover shape)."""
+    cover_path = DIST_DIR / "cover.png"
+    page = browser.new_page(viewport={"width": 1800, "height": 2400})
+    page.goto((EBOOK_DIR / "cover.html").as_uri(), wait_until="networkidle")
+    page.evaluate("document.fonts.ready")
+    page.screenshot(path=str(cover_path))
+    page.close()
+    print(f"PNG  -> {cover_path.relative_to(ROOT)}")
+    return cover_path
+
+
 def render(base_url, version):
     """Print the PDF and return the rendered chapter HTML for the EPUB."""
     pdf_path = DIST_DIR / f"{BASENAME}-{version}.pdf"
@@ -86,9 +99,20 @@ def render(base_url, version):
 
     with sync_playwright() as p:
         browser = launch_browser(p)
+        cover_path = render_cover(browser)
         page = browser.new_page()
         page.goto(f"{base_url}/print_page/", wait_until="networkidle", timeout=180_000)
         page.add_style_tag(path=str(EBOOK_DIR / "ebook.css"))
+        cover_uri = "data:image/png;base64," + base64.b64encode(cover_path.read_bytes()).decode()
+        page.evaluate(
+            """async uri => {
+                const c = document.querySelector('#print-site-cover-page');
+                if (!c) return;
+                c.innerHTML = `<img class="ebook-cover-img" src="${uri}">`;
+                await c.querySelector('img').decode();
+            }""",
+            cover_uri,
+        )
         page.emulate_media(media="print")
         page.pdf(
             path=str(pdf_path),
@@ -143,10 +167,10 @@ def render(base_url, version):
         browser.close()
 
     print(f"PDF  -> {pdf_path.relative_to(ROOT)}")
-    return chapters
+    return chapters, cover_path
 
 
-def build_epub(chapters_html, version):
+def build_epub(chapters_html, cover_path, version):
     html_path = ROOT / "build" / "ebook-chapters.html"
     html_path.write_text(
         f"<!doctype html><html><head><meta charset='utf-8'><title>{TITLE}</title>"
@@ -163,6 +187,7 @@ def build_epub(chapters_html, version):
             "--toc", "--toc-depth=3",
             "--split-level=3",
             "--css", str(EBOOK_DIR / "epub.css"),
+            "--epub-cover-image", str(cover_path),
             "--metadata", f"title={TITLE}",
             "--metadata", f"author={AUTHOR}",
             "--metadata", f"date={datetime.date.today().isoformat()}",
@@ -182,8 +207,8 @@ def main():
 
     DIST_DIR.mkdir(exist_ok=True)
     build_print_site()
-    chapters = render(serve(SITE_DIR), args.version)
-    build_epub(chapters, args.version)
+    chapters, cover_path = render(serve(SITE_DIR), args.version)
+    build_epub(chapters, cover_path, args.version)
 
 
 if __name__ == "__main__":
