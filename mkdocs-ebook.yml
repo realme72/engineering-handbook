@@ -1,0 +1,19 @@
+# Ebook build: same content as the site, rendered as one printable page.
+# Used by scripts/build_ebook.py — not by the GitHub Pages deploy.
+INHERIT: mkdocs.yml
+site_dir: build/ebook-site
+
+plugins:
+  - search
+  - print-site:
+      add_to_navigation: false
+      add_print_site_banner: false
+      add_cover_page: true
+      cover_page_template: ebook/cover.tpl
+      add_table_of_contents: true
+      toc_depth: 2
+      enumerate_headings: false
+      include_css: true
+
+extra:
+  ebook: true

@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+
+{% block content %}
+  {{ super() }}
+  {% set s = config.extra.support %}
+  {% if s.sponsors_url or s.ebook_url %}
+    <div class="grid">
+      {% if s.ebook_url %}
+        <div class="card">
+          <h3>Get the ebook</h3>
+          <p>The whole handbook as PDF + EPUB — read offline, on a Kindle, or annotate while you prep.
+             Pay what you want, from {{ s.ebook_min_price }} (suggested {{ s.ebook_suggested_price }}).
+             Every future chapter is a free update.</p>
+          <a class="md-button md-button--primary" href="{{ s.ebook_url }}">Buy on Leanpub</a>
+        </div>
+      {% endif %}
+      {% if s.sponsors_url %}
+        <div class="card">
+          <h3>Sponsor on GitHub</h3>
+          <p>A one-time or monthly sponsorship keeps new chapters coming.</p>
+          <a class="md-button" href="{{ s.sponsors_url }}">Become a sponsor</a>
+        </div>
+      {% endif %}
+    </div>
+  {% else %}
+    <p><em>Ways to support the handbook are coming soon.</em></p>
+  {% endif %}
+{% endblock %}

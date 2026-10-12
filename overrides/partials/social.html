@@ -1,0 +1,19 @@
+{#- Material's social partial, plus Sponsor / Ebook links once their URLs are set. -#}
+{% set s = config.extra.support %}
+<div class="md-social">
+  {% for social in config.extra.social %}
+    <a href="{{ social.link }}" target="_blank" rel="noopener" title="{{ social.name | e }}" class="md-social__link">
+      {% include ".icons/" ~ social.icon ~ ".svg" %}
+    </a>
+  {% endfor %}
+  {% if s.sponsors_url %}
+    <a href="{{ s.sponsors_url }}" target="_blank" rel="noopener" title="Sponsor on GitHub" class="md-social__link">
+      {% include ".icons/octicons/heart-fill-16.svg" %}
+    </a>
+  {% endif %}
+  {% if s.ebook_url %}
+    <a href="{{ s.ebook_url }}" target="_blank" rel="noopener" title="Get the ebook" class="md-social__link">
+      {% include ".icons/material/book-open-page-variant.svg" %}
+    </a>
+  {% endif %}
+</div>

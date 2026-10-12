@@ -1,0 +1,33 @@
+name: Build ebook
+
+# Tag a release (git tag v1.0 && git push origin v1.0) or run manually from the
+# Actions tab. Download the PDF + EPUB from the run's artifacts and upload them
+# to Leanpub. Artifacts are kept for 7 days.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ebook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # git describe needs tags for the edition label
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-ebook.txt
+      - run: python -m playwright install --with-deps chromium
+      - run: sudo apt-get update && sudo apt-get install -y pandoc
+      - run: python scripts/build_ebook.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ebook-${{ github.ref_name }}
+          path: dist/
+          retention-days: 7

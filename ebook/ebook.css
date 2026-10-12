@@ -1,0 +1,12 @@
+/* Page numbers come from the Playwright footer; drop print-site's own. */
+@page {
+  @bottom-center { content: none; }
+  @bottom-right { content: none; }
+}
+.ebook-cover { text-align: center; padding-top: 30vh; page-break-after: always; }
+.ebook-cover h1 { font-size: 2.6em; margin-bottom: 0.4em; }
+.ebook-subtitle { font-size: 1.2em; color: #555; }
+.ebook-author { margin-top: 3em; font-size: 1.1em; }
+/* Code must wrap in print — there's no horizontal scroll on paper. */
+.md-typeset pre > code { white-space: pre-wrap; word-break: break-word; }
+.md-typeset .md-clipboard, .md-code__nav, .md-code__button, .headerlink { display: none !important; }

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block announce %}
+  {%- set s = config.extra.support -%}
+  {%- if not config.extra.ebook and (s.sponsors_url or s.ebook_url) -%}
+    This handbook is free, forever. If it helped you,
+    {%- if s.sponsors_url %} <a href="{{ s.sponsors_url }}">sponsor it</a>{% endif -%}
+    {%- if s.sponsors_url and s.ebook_url %} or{% endif -%}
+    {%- if s.ebook_url %} <a href="{{ s.ebook_url }}">grab the ebook</a> (from {{ s.ebook_min_price }}){% endif -%}
+    .
+  {%- endif -%}
+{% endblock %}

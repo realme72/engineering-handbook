@@ -1,0 +1,3 @@
+-r requirements.txt
+mkdocs-print-site-plugin==2.9
+playwright==1.63.0

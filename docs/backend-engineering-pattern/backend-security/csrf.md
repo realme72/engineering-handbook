@@ -11,7 +11,9 @@ Victim is logged into their bank (has a valid session cookie for bank.com)
 
 Victim visits a malicious site, which contains:
 
+```html
 <img src="https://bank.com/transfer?to=attacker&amount=1000">
+```
 
 ↓
 

@@ -7,6 +7,7 @@ repo_name: realme72/engineering-handbook
 
 theme:
   name: material
+  custom_dir: overrides
 
   palette:
     - scheme: default
@@ -24,6 +25,7 @@ theme:
         name: Switch to light mode
 
   features:
+    - announce.dismiss
     - navigation.tabs
     - navigation.sections
     - navigation.top
@@ -32,6 +34,10 @@ theme:
     - search.highlight
     - search.suggest
     - toc.follow
+
+# Reached from the banner/footer, not the nav.
+not_in_nav: |
+  /support.md
 
 plugins:
   - search
@@ -260,6 +266,19 @@ nav:
             - Session Hijacking: backend-engineering-pattern/backend-security/session-hijacking.md
             - Replay Attacks: backend-engineering-pattern/backend-security/replay-attacks.md
             - OWASP Top 10: backend-engineering-pattern/backend-security/owasp-top-10.md
+
+extra:
+  # Support links. Leave a URL empty to hide it everywhere (banner, footer,
+  # Support page); set it once the account is live.
+  support:
+    sponsors_url: ""   # e.g. https://github.com/sponsors/realme72
+    ebook_url: ""      # e.g. https://leanpub.com/<book-slug>
+    ebook_min_price: "$1"
+    ebook_suggested_price: "$4.99"
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/realme72/engineering-handbook
+      name: Source on GitHub
 
 extra_css:
   - stylesheets/tree.css
