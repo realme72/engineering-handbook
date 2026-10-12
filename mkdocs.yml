@@ -35,10 +35,6 @@ theme:
     - search.suggest
     - toc.follow
 
-# Reached from the banner/footer, not the nav.
-not_in_nav: |
-  /support.md
-
 plugins:
   - search
 
@@ -267,11 +263,13 @@ nav:
             - Replay Attacks: backend-engineering-pattern/backend-security/replay-attacks.md
             - OWASP Top 10: backend-engineering-pattern/backend-security/owasp-top-10.md
 
+  - Support: support.md
+
 extra:
   # Support links. Leave a URL empty to hide it everywhere (banner, footer,
   # Support page); set it once the account is live.
   support:
-    sponsors_url: ""   # e.g. https://github.com/sponsors/realme72
+    sponsors_url: "https://github.com/sponsors/realme72"
     ebook_url: ""      # e.g. https://leanpub.com/<book-slug>
     ebook_min_price: "$1"
     ebook_suggested_price: "$4.99"
